@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Omaima Kamran | AI & ML Researcher</title>
+
+<style>
+:root {
+  --bg: #fff0f6;
+  --card-bg: #ffffff;
+  --text: #35252d;
+  --muted: #755f6a;
+  --border: #f0dce5;
+  --dark: #1b1518;
+  --email-bg: #333333;
+  --email-hover: #000000;
+  --topbar-bg: rgba(255, 240, 246, 0.92);
+  --accent: #9c4167;
+  --focus-ring: #b67d97;
+  --uni-link: #35252d;
+  --grey-bold: #5a4b53;
+  --black-bold: #000000;
+}
+
+[data-theme="dark"] {
+  --bg: #140f12;
+  --card-bg: #1e171b;
+  --text: #f3e8ee;
+  --muted: #ba9fae;
+  --border: #3b2a33;
+  --dark: #140f12;
+  --email-bg: #383838;
+  --email-hover: #000000;
+  --topbar-bg: rgba(20, 15, 18, 0.92);
+  --accent: #f0a3c4;
+  --focus-ring: #e9aeca;
+  --uni-link: #f3e8ee;
+  --grey-bold: #c5b4bd;
+  --black-bold: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 75px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.7;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hyperlinks: Underlined Bolds */
+a { 
+  color: inherit; 
+  font-weight: 600;
+  text-decoration: underline; 
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent);
+}
+
+/* Standard Bolds: Grey Bold */
+strong, b {
+  color: var(--grey-bold);
+  font-weight: 600;
+}
+
+/* Black Bold strictly for Research Interests */
+.research-interest {
+  color: var(--black-bold);
+  font-weight: 700;
+}
+
+/* SVG Icon alignment */
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* Sticky Top Bar */
+.top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 4%;
+  background: var(--topbar-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  gap: 12px;
+}
+
+.top-bar-left, .top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-link {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+  background: var(--card-bg);
+  border-color: var(--border);
+}
+
+/* Togglable Boxes styled like the Card Box */
+.utility-btn {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  transition: all 0.2s ease;
+}
+
+.utility-btn:hover, .utility-btn.active {
+  background: var(--border);
+  border-color: var(--accent);
+}
+
+/* Email Box: Dark Grey (#333) -> Black Hover */
+.email-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  color: #ffffff !important;
+  background: var(--email-bg);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background-color 0.2s ease;
+}
+
+.email-box:hover, .email-box:focus {
+  background: var(--email-hover);
+  color: #ffffff !important;
+}
+
+/* Off-Canvas Contact Side Drawer */
+.drawer-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.drawer-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.contact-drawer {
+  position: fixed;
+  top: 0;
+  left: -340px;
+  width: 320px;
+  height: 100vh;
+  background: var(--card-bg);
+  border-right: 1px solid var(--border);
+  z-index: 2001;
+  padding: 28px 24px;
+  box-shadow: 4px 0 24px rgba(0,0,0,0.12);
+  transition: left 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-drawer.active {
+  left: 0;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.drawer-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--text);
+}
+
+.close-btn {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+}
+
+.close-btn:hover {
+  color: var(--text);
+  background: var(--border);
+}
+
+.drawer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.drawer-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.drawer-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.drawer-value {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.drawer-value a {
+  color: var(--accent);
+}
+
+/* Main Container */
+main {
+  width: min(1150px, 94%);
+  margin: 24px auto 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* All Card Boxes styled like the About Box */
+.card-box {
+  padding: clamp(24px, 4vw, 40px);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  scroll-margin-top: 75px;
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+  line-height: 1.35;
+  letter-spacing: -.02em;
+}
+
+h1 { margin-bottom: 6px; font-size: clamp(1.6rem, 3.5vw, 2.2rem); color: var(--text); }
+h2 { margin-bottom: 16px; font-size: 1.3rem; color: var(--text); }
+h3 { margin-bottom: 4px; font-size: 1.05rem; color: var(--text); }
+p { margin-top: 0; }
+
+.subtitle, .meta, .project-tech {
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.subtitle { 
+  margin-bottom: 18px; 
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+
+.about {
+  display: grid;
+  grid-template-columns: 210px minmax(0, 1fr);
+  align-items: start;
+  gap: 32px;
+}
+
+.headshot {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.about-text p { margin-bottom: 14px; }
+.about-text p:last-child { margin-bottom: 0; }
+
+/* Hyperlinked University Names */
+.preview-link {
+  position: relative;
+  color: var(--uni-link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* University Webpage Hover Preview Frame */
+.preview-card {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  bottom: 130%;
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  width: 320px;
+  height: 210px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  pointer-events: none;
+  transition: all 0.25s ease;
+  z-index: 100;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.preview-card-header {
+  background: var(--border);
+  padding: 6px 10px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border);
+}
+
+.preview-card iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: #ffffff;
+}
+
+.preview-link:hover .preview-card,
+.preview-link:focus .preview-card {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Accordion Items for Internships, Volunteering, Projects */
+.accordion-item {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.accordion-item:first-of-type { padding-top: 4px; }
+.accordion-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.accordion-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 600;
+}
+
+.accordion-item summary::-webkit-details-marker { display: none; }
+
+.project-title-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.project-title-box h3 {
+  display: inline;
+  margin: 0;
+}
+
+.project-url-icon {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.project-title-box:hover .project-url-icon {
+  color: var(--accent);
+}
+
+.toggle {
+  flex-shrink: 0;
+  color: var(--muted);
+  font-size: 1.3rem;
+  font-weight: 400;
+  transition: transform .2s ease;
+}
+
+.accordion-item[open] .toggle { 
+  transform: rotate(45deg); 
+}
+
+.item-details { 
+  padding-top: 14px; 
+}
+
+.internship-photo {
+  display: block;
+  width: 100%;
+  max-width: 440px;
+  max-height: 320px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  margin-top: 16px;
+}
+
+/* Google Translate Adjustments */
+#google_translate_element {
+  display: inline-block;
+}
+.goog-te-gadget {
+  font-family: inherit !important;
+  font-size: 0.8rem !important;
+}
+.goog-te-gadget-simple {
+  background-color: var(--card-bg) !important;
+  border: 1px solid var(--border) !important;
+  padding: 5px 10px !important;
+  border-radius: 10px !important;
+  font-size: 0.8rem !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Footer Bottom Bar with Logos */
+.bottom-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px 32px;
+  padding: 24px 20px;
+  background: var(--dark);
+  color: #ffffff;
+  border-top: 1px solid var(--border);
+}
+
+.bottom-bar a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #d5b7c5;
+  font-size: 0.88rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+.bottom-bar a:hover { color: #ffffff; text-decoration: underline; }
+
+a:focus-visible, summary:focus-visible, button:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .top-bar {
+    flex-wrap: wrap;
+    padding: 10px 16px;
+  }
+  .top-bar-left { order: 1; }
+  .top-bar-right { order: 2; margin-left: auto; }
+  .nav-link { display: none; }
+  
+  .about {
+    grid-template-columns: 120px minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  main { width: 96%; margin: 16px auto; }
+  .card-box { padding: 20px 16px; }
+  .about { grid-template-columns: 1fr; }
+  .headshot {
+    width: 120px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+  }
+  .preview-card { width: 260px; left: 0; transform: translateX(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition: none !important; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Off-Canvas Contact Side Drawer -->
+<div class="drawer-overlay" id="drawer-overlay" onclick="toggleContactDrawer()"></div>
+
+<aside class="contact-drawer" id="contact-drawer" aria-label="Contact Information">
+  <div class="drawer-header">
+    <h3>Contact Info</h3>
+    <button class="close-btn" onclick="toggleContactDrawer()" aria-label="Close menu">
+      <svg class="icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>
+  </div>
+
+  <div class="drawer-content">
+    <div class="drawer-item">
+      <span class="drawer-label">Location</span>
+      <span class="drawer-value">
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        UMBC / Catonsville, MD, USA
+      </span>
+    </div>
+
+    <div class="drawer-item">
+      <span class="drawer-label">Email</span>
+      <span class="drawer-value">
+        <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+          <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+        </svg>
+        <a href="mailto:okamran1@umbc.edu">okamran1@umbc.edu</a>
+      </span>
+    </div>
+
+    <div class="drawer-item" style="margin-top: 10px;">
+      <span class="drawer-label">Profiles</span>
+      <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 6px;">
+        <a href="https://www.linkedin.com/in/omaima-kamran" target="_blank" rel="noopener noreferrer" class="drawer-value">LinkedIn ↗</a>
+        <a href="https://scholar.google.com/citations?user=L-coXqkAAAAJ&hl=en&authuser=1" target="_blank" rel="noopener noreferrer" class="drawer-value">Google Scholar ↗</a>
+        <a href="https://orcid.org/0009-0001-5652-6023" target="_blank" rel="noopener noreferrer" class="drawer-value">ORCID ↗</a>
+        <a href="https://github.com/omaimaKamran" target="_blank" rel="noopener noreferrer" class="drawer-value">GitHub ↗</a>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- Sticky Top Bar -->
+<header class="top-bar">
+  <div class="top-bar-left">
+    <!-- Contact Button (Opens Side Menu) -->
+    <button class="utility-btn" id="contact-btn" onclick="toggleContactDrawer()" aria-label="Open contact information menu">
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+        <circle cx="12" cy="7" r="4"></circle>
+      </svg>
+      <span>Contact</span>
+    </button>
+
+    <a href="#about" class="nav-link">About</a>
+    <a href="#internships" class="nav-link">Internships</a>
+    <a href="#volunteering" class="nav-link">Volunteering</a>
+    <a href="#projects" class="nav-link">Projects</a>
+  </div>
+
+  <div class="top-bar-right">
+    <!-- Google Translate Element -->
+    <div id="google_translate_element"></div>
+
+    <!-- Text To Speech Box -->
+    <button class="utility-btn" id="tts-btn" onclick="toggleSpeech()" aria-label="Read text aloud">
+      <span id="tts-icon">
+        <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>
+      </span>
+      <span id="tts-text">Listen</span>
+    </button>
+
+    <!-- Dark Mode Box -->
+    <button class="utility-btn" id="theme-btn" onclick="toggleDarkMode()" aria-label="Toggle dark mode">
+      <span id="theme-icon">
+        <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+        </svg>
+      </span>
+    </button>
+
+    <!-- Email Box -->
+    <a class="email-box" href="mailto:okamran1@umbc.edu" aria-label="Send email to Omaima">
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+      </svg>
+      okamran1@umbc.edu
+    </a>
+  </div>
+</header>
+
+<main>
+
+<!-- About Card Box -->
+<section class="card-box about" id="about">
+  <img class="headshot" src="ok.png" alt="Portrait of Omaima Kamran">
+
+  <div class="about-text">
+    <h1>Omaima Kamran</h1>
+    <div class="subtitle">
+      <span class="location-badge">
+        <svg class="icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        Catonsville, MD, USA
+      </span>
+    </div>
+
+    <p>
+      Hi! I am a <strong>Computer Science master's student</strong> at 
+      <a href="https://umbc.edu" target="_blank" rel="noopener noreferrer" class="preview-link">
+        UMBC
+        <div class="preview-card">
+          <div class="preview-card-header">
+            <span>umbc.edu</span>
+            <span>Official Webpage ↗</span>
+          </div>
+          <iframe src="https://umbc.edu" title="UMBC Official Webpage"></iframe>
+        </div>
+      </a>
+    </p>
+
+    <!-- Research interests in Black Bold (No middle dots) -->
+    <p>
+      My <strong>research interests</strong> include 
+      <span class="research-interest">Neural Networks</span>, 
+      <span class="research-interest">Generative AI</span>, and 
+      <span class="research-interest">Stochastic Gradient Descent (SGD)</span>.
+    </p>
+      
+    <p>
+      I am currently working on implementing unmodeled, biology-inspired mechanisms in neural networks.</p>
+      <p>I completed my <strong>B.Tech in Computer Science and Engineering with honours in AI</strong> from 
+      <a href="https://amity.edu" target="_blank" rel="noopener noreferrer" class="preview-link">
+        Amity University
+        <div class="preview-card">
+          <div class="preview-card-header">
+            <span>amity.edu</span>
+            <span>Official Webpage ↗</span>
+          </div>
+          <iframe src="https://amity.edu" title="Amity University Official Webpage"></iframe>
+        </div>
+      </a>
+    </p>
+
+    <p>Outside of tech, I enjoy coffee, music, and walks.</p>
+  </div>
+</section>
+
+<!-- Internships Card Box -->
+<section class="card-box" id="internships">
+  <h2>Internships</h2>
+
+  <details class="accordion-item">
+    <summary>
+      <span>LG Electronics — 2025</span>
+      <span class="toggle" aria-hidden="true">+</span>
+    </summary>
+    <div class="item-details">
+      <p class="meta">
+        SQL · Flask · HTML &nbsp;|&nbsp; 
+        Mentor: <a href="https://www.linkedin.com/search/results/all/?keywords=Swarup%20Kumar%20Kar" target="_blank" rel="noopener noreferrer">Swarup Kumar Kar</a>
+      </p>
+      <p>
+        Developed a full-stack web application to digitize tool inventory
+        management on the production floor, replacing error-prone manual
+        tracking. The application tracked tool quantities, issuance records,
+        user accountability, locations, defects, and repair logs, improving
+        traceability and maintenance tracking.
+      </p>
+      <img class="internship-photo" src="images/lg-internship.jpg"
+        alt="Omaima during her internship at LG Electronics" loading="lazy">
+    </div>
+  </details>
+
+  <details class="accordion-item">
+    <summary>
+      <span>STMicroelectronics — 2024</span>
+      <span class="toggle" aria-hidden="true">+</span>
+    </summary>
+    <div class="item-details">
+      <p class="meta">
+        Python · PyMuPDF · Tkinter &nbsp;|&nbsp; 
+        Mentor: <a href="https://www.linkedin.com/search/results/all/?keywords=Inderjeet%20Singh" target="_blank" rel="noopener noreferrer">Inderjeet Singh</a>
+      </p>
+      <p>
+        Built a Python desktop application that automated updates across
+        internal audit documents using instructions from a CSV file.
+        The tool reduced document update time from hours to seconds while
+        improving consistency and minimizing manual errors.
+      </p>
+      <img class="internship-photo" src="images/st-internship.jpg"
+        alt="Omaima during her internship at STMicroelectronics" loading="lazy">
+    </div>
+  </details>
+
+  <details class="accordion-item">
+    <summary>
+      <span>Honda Cars India Limited — 2023</span>
+      <span class="toggle" aria-hidden="true">+</span>
+    </summary>
+    <div class="item-details">
+      <p class="meta">
+        Automotive Software · Connected Mobility &nbsp;|&nbsp; 
+        Mentor: <a href="https://www.linkedin.com/search/results/all/?keywords=Vikas%20Khanna" target="_blank" rel="noopener noreferrer">Vikas Khanna</a>
+      </p>
+      <p>
+        Explored the role of software in the automotive manufacturing
+        industry, with a focus on the Honda Connect application and
+        connected-car technologies.
+      </p>
+      <img class="internship-photo" src="images/honda-internship.jpg"
+        alt="Omaima during her internship at Honda Cars India Limited" loading="lazy">
+    </div>
+  </details>
+</section>
+
+<!-- Projects Card Box -->
+<section class="card-box" id="projects">
+  <h2>Projects</h2>
+
+  <details class="accordion-item">
+    <summary>
+      <div>
+        <div class="project-title-box">
+          <h3>MedMultiRAG: Multimodal, Multi-Agent RAG for Medical Diagnosis</h3>
+          <a href="https://github.com/omaimaKamran" target="_blank" rel="noopener noreferrer" class="project-url-icon" aria-label="Open project link">
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+        <div class="project-tech">2026 · Generative AI · RAG · Full-stack development</div>
+      </div>
+      <span class="toggle" aria-hidden="true">+</span>
+    </summary>
+    <div class="item-details">
+      <!-- Mentor and Collaborators shown ONLY when expanded -->
+      <p class="meta">
+        Mentor: <a href="https://www.linkedin.com/search/results/all/?keywords=Dr%20Seema%20Sharma" target="_blank" rel="noopener noreferrer">Dr. Seema Sharma</a> (Amity University)
+        &nbsp;|&nbsp; Collaborators: 
+        <a href="https://www.linkedin.com/search/results/all/?keywords=Renad%20Alqahtani" target="_blank" rel="noopener noreferrer">Renad Alqahtani</a>, 
+        <a href="https://www.linkedin.com/search/results/all/?keywords=Shaleyi%20Dhaka" target="_blank" rel="noopener noreferrer">Shaleyi Dhaka</a>
+      </p>
+      <p>
+        Developed a doctor-in-the-loop web application that integrates
+        multimodal patient inputs and AI agent-generated responses.
+        Responses are routed to a doctor portal for manual review and
+        approval before medical advice is delivered to patients.
+      </p>
+    </div>
+  </details>
+
+  <details class="accordion-item">
+    <summary>
+      <div>
+        <div class="project-title-box">
+          <h3>Design for Change India Challenge</h3>
+          <a href="https://github.com/omaimaKamran" target="_blank" rel="noopener noreferrer" class="project-url-icon" aria-label="Open project link">
+            <svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+        <div class="project-tech">2021 · Flask · Scikit-learn · Wolfram</div>
+      </div>
+      <span class="toggle" aria-hidden="true">+</span>
+    </summary>
+    <div class="item-details">
+      <!-- Mentor and Collaborators shown ONLY when expanded -->
+      <p class="meta">
+        Mentor: <a href="https://www.linkedin.com/search/results/all/?keywords=Deepika%20Jain" target="_blank" rel="noopener noreferrer">Deepika Jain</a>
+        &nbsp;|&nbsp; Collaborators: 
+        <a href="https://www.linkedin.com/search/results/all/?keywords=Vyom%20Jain" target="_blank" rel="noopener noreferrer">Vyom Jain</a>, 
+        <a href="https://www.linkedin.com/search/results/all/?keywords=Kritika%20Aggarwal" target="_blank" rel="noopener noreferrer">Kritika Aggarwal</a>
+      </p>
+      <p>
+        Created a Chrome extension to assess the credibility of selected
+        text using machine learning and cross-check findings against
+        reputable fact-checking websites. Recognized as a top-eight
+        finalist nationwide.
+      </p>
+    </div>
+  </details>
+</section>
+
+
+<!-- Volunteering Card Box (Placed before Projects) -->
+<section class="card-box" id="volunteering">
+  <h2>Volunteering</h2>
+  <ul>
+    <li>General Secretary — Software Engineering Club, Amity University — 2026</li>
+    <li>Content Lead — Software Engineering Club, Amity University — 2025</li>
+    <li>Education Volunteer — Uttejana Foundation — 2024–2025</li>
+    <li>Student Volunteer — International Confluence on Cloud Computing &amp; AI-ML, Amity University — 2024, 2025</li>
+    <li>STEM &amp; Robotics Volunteer — STMicroelectronics — 2024</li>
+    <li>Student Volunteer — Amity Startup Expo — 2024</li>
+    <li>Student Volunteer — Scintilla Fest, University of Delhi — 2022</li>
+  </ul>
+</section>
+
+</main>
+
+<!-- Bottom Bar with Logos & CV Link -->
+<footer class="bottom-bar">
+  <a href="https://www.linkedin.com/in/omaima-kamran" target="_blank" rel="noopener noreferrer">
+    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.25V10.9H6.46M7.86 6.72a1.4 1.4 0 1 0 1.4 1.4 1.4 1.4 0 0 0-1.4-1.4Z"/>
+    </svg>
+    <span>LinkedIn</span>
+  </a>
+
+  <a href="https://scholar.google.com/citations?user=L-coXqkAAAAJ&hl=en&authuser=1" target="_blank" rel="noopener noreferrer">
+    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 24a7 7 0 1 1 7-7c0 3.87-3.13 7-7 7zm0-12a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm10-7L12 0 2 5l10 5 10-5zm-3.6 3.7L12 6.3 5.6 8.7 12 11.3l6.4-2.6z"/>
+    </svg>
+    <span>Google Scholar</span>
+  </a>
+
+  <a href="https://orcid.org/0009-0001-5652-6023" target="_blank" rel="noopener noreferrer">
+    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.425.947.947s-.422.947-.947.947a.95.95 0 0 1-.947-.947c0-.522.425-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c2.559 0 3.806-1.616 3.806-3.716 0-2.044-1.219-3.728-3.759-3.728h-2.344z"/>
+    </svg>
+    <span>ORCID</span>
+  </a>
+
+  <a href="https://github.com/omaimaKamran" target="_blank" rel="noopener noreferrer">
+    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12Z"/>
+    </svg>
+    <span>GitHub</span>
+  </a>
+
+  <!-- Link to CV -->
+  <a href="https://drive.google.com/file/d/1g6dWs0kgkgq2Dfrf1uwsgZ1V1dDSLB7Q/view?usp=sharing" target="_blank" rel="noopener noreferrer">
+    <svg class="icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+      <polyline points="14 2 14 8 20 8"></polyline>
+      <line x1="16" y1="13" x2="8" y2="13"></line>
+      <line x1="16" y1="17" x2="8" y2="17"></line>
+      <polyline points="10 9 9 9 8 9"></polyline>
+    </svg>
+    <span>CV / Resume</span>
+  </a>
+</footer>
+
+<!-- Interactive Scripts -->
+<script>
+// Toggle Side Contact Drawer
+function toggleContactDrawer() {
+  const drawer = document.getElementById('contact-drawer');
+  const overlay = document.getElementById('drawer-overlay');
+  const btn = document.getElementById('contact-btn');
+  
+  drawer.classList.toggle('active');
+  overlay.classList.toggle('active');
+  btn.classList.toggle('active');
+}
+
+// Dark Mode Toggle Logic
+function toggleDarkMode() {
+  const html = document.documentElement;
+  const currentTheme = html.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', newTheme);
+  
+  const themeBtn = document.getElementById('theme-btn');
+  const themeIcon = document.getElementById('theme-icon');
+  
+  if (newTheme === 'dark') {
+    themeBtn.classList.add('active');
+    themeIcon.innerHTML = `
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+      </svg>`;
+  } else {
+    themeBtn.classList.remove('active');
+    themeIcon.innerHTML = `
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
+      </svg>`;
+  }
+  localStorage.setItem('theme', newTheme);
+}
+
+// Restore saved dark mode preference
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  if (savedTheme === 'dark') {
+    document.getElementById('theme-btn').classList.add('active');
+    document.getElementById('theme-icon').innerHTML = `
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="4"></circle>
+        <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+      </svg>`;
+  }
+}
+
+// Text-To-Speech Logic
+let speaking = false;
+function toggleSpeech() {
+  if (!('speechSynthesis' in window)) {
+    alert('Text-to-speech is not supported in your browser.');
+    return;
+  }
+
+  const btnText = document.getElementById('tts-text');
+  const btnIcon = document.getElementById('tts-icon');
+  const ttsBtn = document.getElementById('tts-btn');
+
+  if (speaking) {
+    window.speechSynthesis.cancel();
+    speaking = false;
+    ttsBtn.classList.remove('active');
+    btnText.textContent = 'Listen';
+    btnIcon.innerHTML = `
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      </svg>`;
+  } else {
+    const textToRead = document.querySelector('main').innerText;
+    const utterance = new SpeechSynthesisUtterance(textToRead);
+    utterance.rate = 0.95;
+    
+    utterance.onend = () => {
+      speaking = false;
+      ttsBtn.classList.remove('active');
+      btnText.textContent = 'Listen';
+      btnIcon.innerHTML = `
+        <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+        </svg>`;
+    };
+
+    window.speechSynthesis.speak(utterance);
+    speaking = true;
+    ttsBtn.classList.add('active');
+    btnText.textContent = 'Stop';
+    btnIcon.innerHTML = `
+      <svg class="icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+        <rect x="6" y="6" width="12" height="12" rx="1"></rect>
+      </svg>`;
+  }
+}
+</script>
+
+<!-- Google Translate Integration Script -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({
+    pageLanguage: 'en',
+    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+    autoDisplay: false
+  }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+</body>
+</html>
